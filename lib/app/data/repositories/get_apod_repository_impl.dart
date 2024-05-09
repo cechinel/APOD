@@ -1,4 +1,4 @@
-import '../../domain/entity/apod_entity.dart';
+import '../../domain/entities/apod_entity.dart';
 import '../../domain/repositories/get_apod_repository.dart';
 
 class GetApodRepositoryImpl implements GetApodRepository {
@@ -9,7 +9,7 @@ class GetApodRepositoryImpl implements GetApodRepository {
   );
 
   @override
-  Future<APODEntity> call() async {
+  Future<ApodEntity> call() async {
     return await repository();
   }
 }

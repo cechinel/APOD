@@ -1,5 +1,5 @@
-import '../entity/apod_entity.dart';
+import '../entities/apod_entity.dart';
 
 abstract class GetApodRepository {
-  Future<APODEntity> call();
+  Future<ApodEntity> call();
 }
