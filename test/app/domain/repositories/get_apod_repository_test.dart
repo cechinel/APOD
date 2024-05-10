@@ -19,7 +19,7 @@ void main() {
     datasource = MockGetApodDatasource();
     repository = GetApodRepositoryImpl(datasource);
 
-    apodEntityFaker = Mocks.astronomyPictureToday;
+    apodEntityFaker = Mocks.astronomyPictureTodayEntity;
   });
 
   test('Should return an ApodEntity when request is success', () async {
@@ -28,5 +28,11 @@ void main() {
     final astronomyPictureOfTheDay = await repository();
 
     expect(astronomyPictureOfTheDay, isA<ApodEntity>());
+  });
+
+  test('Should throw an exception when request fails', () async {
+    when(repository()).thenThrow(Exception('Failed to fetch data'));
+
+    expect(() => repository(), throwsException);
   });
 }
