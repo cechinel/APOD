@@ -3,12 +3,12 @@ import '../repositories/get_apod_repository.dart';
 import './get_apod_usecase.dart';
 
 class GetApodUsecaseImpl implements GetApodUsecase {
-  final GetApodRepository repository;
+  final GetApodRepository _repository;
 
-  GetApodUsecaseImpl(this.repository);
+  GetApodUsecaseImpl(this._repository);
 
   @override
   Future<ApodEntity> call() async {
-    return await repository();
+    return await _repository();
   }
 }

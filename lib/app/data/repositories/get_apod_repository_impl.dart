@@ -4,14 +4,14 @@ import '../../domain/entities/apod_entity.dart';
 import '../../domain/repositories/get_apod_repository.dart';
 
 class GetApodRepositoryImpl implements GetApodRepository {
-  final GetApodDatasource datasource;
+  final GetApodDatasource _datasource;
 
   GetApodRepositoryImpl(
-    this.datasource,
+    this._datasource,
   );
 
   @override
   Future<ApodEntity> call() async {
-    return await datasource();
+    return await _datasource();
   }
 }
