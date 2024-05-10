@@ -2,6 +2,7 @@ import 'package:apod/app/domain/entities/apod_entity.dart';
 import 'package:apod/app/domain/repositories/get_apod_repository.dart';
 import 'package:apod/app/domain/usecases/get_apod_usecase.dart';
 import 'package:apod/app/domain/usecases/get_apod_usecase_impl.dart';
+import 'package:apod/services/exceptions/apod_generic_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -30,9 +31,11 @@ void main() {
     expect(astronomyPictureOfTheDay, isA<ApodEntity>());
   });
 
-  test('Should return an error when request fails', () async {
-    when(repository()).thenThrow(Exception('Failed to fetch data'));
+  test('Should return an exception when request fails', () async {
+    when(repository()).thenThrow(Exception());
 
-    expect(() => usecase(), throwsException);
+    final result = usecase();
+
+    expect(result, throwsA(isA<ApodGenericException>()));
   });
 }
