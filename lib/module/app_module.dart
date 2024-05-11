@@ -5,6 +5,7 @@ import 'package:apod/app/domain/usecases/get_apod_usecase.dart';
 import 'package:apod/app/domain/usecases/get_apod_usecase_impl.dart';
 import 'package:apod/app/external/get_apod_datasource_impl.dart';
 import 'package:apod/app/presentation/home/home_page_controller.dart';
+import 'package:apod/services/client_https/client_https.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../app/presentation/home/home_page.dart';
@@ -23,6 +24,9 @@ class AppModule extends Module {
 
     // controllers
     i.addSingleton(HomePageController.new);
+
+    // client
+    i.addSingleton(ClientHttps.new);
   }
 
   @override
