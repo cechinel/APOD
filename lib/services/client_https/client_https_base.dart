@@ -5,9 +5,14 @@ import '../exceptions/apod_exception.dart';
 class ApodClientHttpsBase {
   final Dio _dio;
 
-  ApodClientHttpsBase({
-    BaseOptions? baseOptions,
-  }) : _dio = Dio(baseOptions);
+  ApodClientHttpsBase(
+    BaseOptions baseOptions, {
+    List<Interceptor>? interceptors,
+  }) : _dio = Dio(baseOptions) {
+    if (interceptors != null) {
+      _dio.interceptors.addAll(interceptors);
+    }
+  }
 
   Future<Response<T>> get<T>(
     String path, {
