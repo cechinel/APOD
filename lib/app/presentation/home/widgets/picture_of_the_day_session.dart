@@ -18,27 +18,36 @@ class PictureOfTheDaySession extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              textAlign: TextAlign.start,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            textAlign: TextAlign.start,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
             ),
-            Text(
-              pictureTitle,
-              textAlign: TextAlign.start,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+          ),
+          Text(
+            pictureTitle,
+            textAlign: TextAlign.start,
+            style: const TextStyle(
+              fontSize: 16,
             ),
-          ],
-        ),
+          ),
+          _buildImageOfTheDay(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageOfTheDay() {
+    return SizedBox(
+      width: 200,
+      height: 200,
+      child: ClipRect(
+        child: Image.network(picture),
       ),
     );
   }
