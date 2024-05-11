@@ -1,6 +1,7 @@
 import 'package:apod/app/data/datasources/get_apod_datasource.dart';
 
 import '../../services/client_https/client_https.dart';
+import '../../shared/format_date.dart';
 import '../domain/models/apod_dto.dart';
 
 class GetApodDatasourceImpl implements GetApodDatasource {
@@ -13,9 +14,22 @@ class GetApodDatasourceImpl implements GetApodDatasource {
   final _clientEnpoint = '/planetary/apod';
 
   @override
-  Future<ApodDto> call() async {
-    final response = await _clientHttps.get(_clientEnpoint);
+  Future<List<ApodDto>> call({
+    required int size,
+    DateTime? date,
+  }) async {
+    final params =
+        date == null ? {"count": size.toString()} : {"date": formatDate(date)};
 
-    return ApodDto.fromMap(response.data);
+    final response =
+        await _clientHttps.get(_clientEnpoint, queryParameters: params);
+
+    if (response.data is Map<String, dynamic>) {
+      return [ApodDto.fromMap(response.data)];
+    }
+
+    final list = response.data as List? ?? [];
+
+    return list.map((picture) => ApodDto.fromMap(picture)).toList();
   }
 }

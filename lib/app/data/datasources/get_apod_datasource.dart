@@ -1,5 +1,8 @@
 import '../../domain/models/apod_dto.dart';
 
 abstract class GetApodDatasource {
-  Future<ApodDto> call();
+  Future<List<ApodDto>> call({
+    required int size,
+    DateTime? date,
+  });
 }

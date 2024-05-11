@@ -12,9 +12,12 @@ class GetApodRepositoryImpl implements GetApodRepository {
   );
 
   @override
-  Future<ApodDto> call() async {
+  Future<List<ApodDto>> call({
+    required int size,
+    DateTime? date,
+  }) async {
     try {
-      return await _datasource();
+      return await _datasource(size: size, date: date);
     } catch (_) {
       throw ApodGenericException();
     }

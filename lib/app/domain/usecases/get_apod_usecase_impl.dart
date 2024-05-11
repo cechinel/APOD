@@ -10,9 +10,12 @@ class GetApodUsecaseImpl implements GetApodUsecase {
   GetApodUsecaseImpl(this._repository);
 
   @override
-  Future<ApodDto> call() async {
+  Future<List<ApodDto>> call({
+    required int size,
+    DateTime? date,
+  }) async {
     try {
-      return await _repository();
+      return await _repository(size: size, date: date);
     } catch (_) {
       throw ApodGenericException();
     }
