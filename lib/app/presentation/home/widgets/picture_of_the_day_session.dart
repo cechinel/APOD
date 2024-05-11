@@ -4,12 +4,14 @@ class PictureOfTheDaySession extends StatelessWidget {
   final String title;
   final String picture;
   final String pictureTitle;
+  final bool loading;
 
   const PictureOfTheDaySession({
     super.key,
     required this.title,
     required this.picture,
     required this.pictureTitle,
+    required this.loading,
   });
 
   @override

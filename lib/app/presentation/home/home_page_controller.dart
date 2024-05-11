@@ -23,6 +23,9 @@ abstract class HomePageControllerBase with Store {
     try {
       loading = true;
       pictureOfTheDay = await _getApodUsecase();
-    } catch (_) {}
+    } catch (_) {
+    } finally {
+      loading = false;
+    }
   }
 }
