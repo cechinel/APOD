@@ -1,5 +1,5 @@
-import '../../domain/entities/apod_entity.dart';
+import '../../domain/models/apod_dto.dart';
 
 abstract class GetApodDatasource {
-  Future<ApodEntity> call();
+  Future<ApodDto> call();
 }
