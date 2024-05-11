@@ -1,6 +1,6 @@
+import 'package:apod/app/domain/models/apod_dto.dart';
 import 'package:apod/services/exceptions/apod_generic_exception.dart';
 
-import '../entities/apod_entity.dart';
 import '../repositories/get_apod_repository.dart';
 import './get_apod_usecase.dart';
 
@@ -10,7 +10,7 @@ class GetApodUsecaseImpl implements GetApodUsecase {
   GetApodUsecaseImpl(this._repository);
 
   @override
-  Future<ApodEntity> call() async {
+  Future<ApodDto> call() async {
     try {
       return await _repository();
     } catch (_) {
