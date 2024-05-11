@@ -10,7 +10,7 @@ class GetApodDatasourceImpl implements GetApodDatasource {
     this._clientHttps,
   );
 
-  final _clientEnpoint = "/planetary/apod";
+  final _clientEnpoint = '/planetary/apod';
 
   @override
   Future<ApodDto> call() async {
