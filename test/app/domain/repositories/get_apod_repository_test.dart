@@ -1,6 +1,6 @@
 import 'package:apod/app/data/datasources/get_apod_datasource.dart';
 import 'package:apod/app/data/repositories/get_apod_repository_impl.dart';
-import 'package:apod/app/domain/entities/apod_entity.dart';
+import 'package:apod/app/domain/models/apod_dto.dart';
 import 'package:apod/app/domain/repositories/get_apod_repository.dart';
 import 'package:apod/services/exceptions/apod_generic_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,21 +14,21 @@ import 'get_apod_repository_test.mocks.dart';
 void main() {
   late GetApodDatasource datasource;
   late GetApodRepository repository;
-  late ApodEntity apodEntityFaker;
+  late ApodDto apodDtoFaker;
 
   setUp(() {
     datasource = MockGetApodDatasource();
     repository = GetApodRepositoryImpl(datasource);
 
-    apodEntityFaker = Mocks.astronomyPictureTodayEntity;
+    apodDtoFaker = Mocks.astronomyPictureOfTheDay;
   });
 
-  test('Should return an ApodEntity when request is success', () async {
-    when(repository()).thenAnswer((_) => Future.value(apodEntityFaker));
+  test('Should return an ApodDto when request is success', () async {
+    when(repository()).thenAnswer((_) => Future.value(apodDtoFaker));
 
     final astronomyPictureOfTheDay = await repository();
 
-    expect(astronomyPictureOfTheDay, isA<ApodEntity>());
+    expect(astronomyPictureOfTheDay, isA<ApodDto>());
   });
 
   test('Should throw an exception when request fails', () async {

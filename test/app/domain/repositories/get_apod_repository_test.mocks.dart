@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:apod/app/data/datasources/get_apod_datasource.dart' as _i3;
-import 'package:apod/app/domain/entities/apod_entity.dart' as _i2;
+import 'package:apod/app/domain/models/apod_dto.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -22,8 +22,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeApodEntity_0 extends _i1.SmartFake implements _i2.ApodEntity {
-  _FakeApodEntity_0(
+class _FakeApodDto_0 extends _i1.SmartFake implements _i2.ApodDto {
+  _FakeApodDto_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -41,17 +41,17 @@ class MockGetApodDatasource extends _i1.Mock implements _i3.GetApodDatasource {
   }
 
   @override
-  _i4.Future<_i2.ApodEntity> call() => (super.noSuchMethod(
+  _i4.Future<_i2.ApodDto> call() => (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
         ),
-        returnValue: _i4.Future<_i2.ApodEntity>.value(_FakeApodEntity_0(
+        returnValue: _i4.Future<_i2.ApodDto>.value(_FakeApodDto_0(
           this,
           Invocation.method(
             #call,
             [],
           ),
         )),
-      ) as _i4.Future<_i2.ApodEntity>);
+      ) as _i4.Future<_i2.ApodDto>);
 }

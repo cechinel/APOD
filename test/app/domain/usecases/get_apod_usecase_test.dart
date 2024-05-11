@@ -1,4 +1,4 @@
-import 'package:apod/app/domain/entities/apod_entity.dart';
+import 'package:apod/app/domain/models/apod_dto.dart';
 import 'package:apod/app/domain/repositories/get_apod_repository.dart';
 import 'package:apod/app/domain/usecases/get_apod_usecase.dart';
 import 'package:apod/app/domain/usecases/get_apod_usecase_impl.dart';
@@ -14,21 +14,21 @@ import 'get_apod_usecase_test.mocks.dart';
 void main() {
   late GetApodUsecase usecase;
   late GetApodRepository repository;
-  late ApodEntity apodEntityFaker;
+  late ApodDto apodDtoFaker;
 
   setUp(() {
     repository = MockGetApodRepository();
     usecase = GetApodUsecaseImpl(repository);
 
-    apodEntityFaker = Mocks.astronomyPictureTodayEntity;
+    apodDtoFaker = Mocks.astronomyPictureOfTheDay;
   });
 
   test('Should return an ApodEntity when request is success', () async {
-    when(repository()).thenAnswer((_) => Future.value(apodEntityFaker));
+    when(repository()).thenAnswer((_) => Future.value(apodDtoFaker));
 
     final astronomyPictureOfTheDay = await usecase();
 
-    expect(astronomyPictureOfTheDay, isA<ApodEntity>());
+    expect(astronomyPictureOfTheDay, isA<ApodDto>());
   });
 
   test('Should return an exception when request fails', () async {

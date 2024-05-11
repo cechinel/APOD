@@ -1,17 +1,18 @@
-import 'package:apod/app/domain/entities/apod_entity.dart';
+import 'package:apod/app/domain/models/apod_dto.dart';
 import 'package:faker/faker.dart';
 
 class Mocks {
-  static ApodEntity get astronomyPictureTodayEntity {
+  static ApodDto get astronomyPictureOfTheDay {
     final faker = Faker();
 
-    return ApodEntity(
+    return ApodDto(
+      copyright: faker.person.name(),
       url: faker.image.image(),
       hdurl: faker.image.image(),
       title: faker.lorem.word(),
       date: faker.date.dateTime(),
-      mediaType: faker.lorem.word(),
-      explanation: faker.lorem.word(),
+      mediaType: faker.image.image(),
+      explanation: faker.lorem.sentence(),
       serviceVersion: faker.lorem.word(),
     );
   }
