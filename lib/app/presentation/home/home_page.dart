@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:swipe_refresh/swipe_refresh.dart';
 
+import '../../domain/models/apod_dto.dart';
 import 'widgets/pictures_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,6 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _controller = Modular.get<HomePageController>();
   final _swipeController = StreamController<SwipeRefreshState>.broadcast();
+  TextEditingController searchController = TextEditingController();
 
   Stream<SwipeRefreshState> get _stream => _swipeController.stream;
 
@@ -41,37 +43,65 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.indigo,
-        title: const Text(
-          'Astronomy Pictures Of the Day',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.indigo,
+          title: const Text(
+            'Astronomy Pictures Of the Day',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
           ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildPicturesOfTheDayList(),
-        ],
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildSearchField(),
+            _buildPicturesOfTheDayList(),
+          ],
+        ),
       ),
     );
   }
 
+  Widget _buildSearchField() {
+    return Observer(builder: (_) {
+      return Padding(
+        padding: const EdgeInsets.all(16),
+        child: TextField(
+          onChanged: (searchTerm) {
+            _controller.searchPicture(searchTerm);
+          },
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Search for name or date of the picture..',
+            labelStyle: TextStyle(fontSize: 14),
+            suffixIcon: Icon(Icons.search),
+          ),
+        ),
+      );
+    });
+  }
+
   Widget _buildPicturesOfTheDayList() {
     return Observer(builder: (context) {
+      final List<ApodDto> displayedPictures =
+          _controller.searchResults.isNotEmpty
+              ? _controller.searchResults
+              : _controller.picturesOfTheDayList;
+
       return Expanded(
         child: SwipeRefresh.builder(
-          itemCount: _controller.picturesOfTheDayList.length,
+          itemCount: displayedPictures.length,
           stateStream: _stream,
           onRefresh: _refresh,
           itemBuilder: (context, index) {
-            final pictureOfTheDay = _controller.picturesOfTheDayList[index];
+            final pictureOfTheDay = displayedPictures[index];
 
             return PicturesList(
               picture: pictureOfTheDay.url,

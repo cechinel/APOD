@@ -42,11 +42,28 @@ mixin _$HomePageController on HomePageControllerBase, Store {
     });
   }
 
+  late final _$searchResultsAtom =
+      Atom(name: 'HomePageControllerBase.searchResults', context: context);
+
+  @override
+  ObservableList<ApodDto> get searchResults {
+    _$searchResultsAtom.reportRead();
+    return super.searchResults;
+  }
+
+  @override
+  set searchResults(ObservableList<ApodDto> value) {
+    _$searchResultsAtom.reportWrite(value, super.searchResults, () {
+      super.searchResults = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
 loading: ${loading},
-picturesOfTheDayList: ${picturesOfTheDayList}
+picturesOfTheDayList: ${picturesOfTheDayList},
+searchResults: ${searchResults}
     ''';
   }
 }
