@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.indigo,
         title: const Text(
-          'Astronomy Picture Of the Day',
+          'Astronomy Pictures Of the Day',
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w600,
