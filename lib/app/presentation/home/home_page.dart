@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:apod/app/presentation/home/home_page_controller.dart';
-import 'package:apod/app/presentation/home/widgets/picture_of_the_day_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:swipe_refresh/swipe_refresh.dart';
 
-import 'widgets/pictures_list_session.dart';
+import 'widgets/pictures_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,11 +17,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _controller = Modular.get<HomePageController>();
+  final _swipeController = StreamController<SwipeRefreshState>.broadcast();
+
+  Stream<SwipeRefreshState> get _stream => _swipeController.stream;
+
+  Future<void> _refresh() async {
+    _controller.getAstronomyPicturesOfTheDay().then((value) {
+      _swipeController.sink.add(SwipeRefreshState.hidden);
+    });
+  }
 
   @override
   void initState() {
-    _controller.getAstronomyPictureOfTheDay();
+    _controller.getAstronomyPicturesOfTheDay();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _swipeController.close();
+    super.dispose();
   }
 
   @override
@@ -40,32 +57,30 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildPictureOfTheDaySession(),
-          _buildPicturesListSession(),
+          _buildPicturesOfTheDayList(),
         ],
       ),
     );
   }
 
-  Widget _buildPictureOfTheDaySession() {
-    return Observer(
-      builder: (context) {
-        return PictureOfTheDaySession(
-          title: 'Picture Of the Day!',
-          pictureTitle: _controller.pictureOfTheDay?.title ?? '',
-          picture: _controller.pictureOfTheDay?.url ?? '',
-          loading: _controller.loading,
-        );
-      },
-    );
-  }
+  Widget _buildPicturesOfTheDayList() {
+    return Observer(builder: (context) {
+      return Expanded(
+        child: SwipeRefresh.builder(
+          itemCount: _controller.picturesOfTheDayList.length,
+          stateStream: _stream,
+          onRefresh: _refresh,
+          itemBuilder: (context, index) {
+            final pictureOfTheDay = _controller.picturesOfTheDayList[index];
 
-  Widget _buildPicturesListSession() {
-    return const PicturesListSession(
-      sessionTitle: 'Pictures',
-      picture: 'picture url',
-      pictureTitle: 'picture title',
-      pictureDate: 'picture date',
-    );
+            return PicturesList(
+              picture: pictureOfTheDay.url,
+              pictureTitle: pictureOfTheDay.title,
+              pictureDate: pictureOfTheDay.date,
+            );
+          },
+        ),
+      );
+    });
   }
 }

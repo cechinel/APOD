@@ -17,12 +17,17 @@ abstract class HomePageControllerBase with Store {
   bool loading = false;
 
   @observable
-  ApodDto? pictureOfTheDay;
+  ObservableList<ApodDto> picturesOfTheDayList = <ApodDto>[].asObservable();
 
-  Future<void> getAstronomyPictureOfTheDay() async {
+  Future<void> getAstronomyPicturesOfTheDay({
+    int size = 12,
+    DateTime? date,
+  }) async {
     try {
       loading = true;
-      pictureOfTheDay = await _getApodUsecase();
+      final pictures = await _getApodUsecase(size: size, date: date);
+
+      picturesOfTheDayList = pictures.asObservable();
     } catch (_) {
     } finally {
       loading = false;
