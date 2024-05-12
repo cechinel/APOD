@@ -24,17 +24,22 @@ void main() {
   });
 
   test('Should return an ApodEntity when request is success', () async {
-    when(repository()).thenAnswer((_) => Future.value(apodDtoFaker));
+    const size = 5;
+    final mockList = List.generate(size, (index) => apodDtoFaker);
 
-    final astronomyPictureOfTheDay = await usecase();
+    when(repository(size: 5)).thenAnswer((_) async => mockList);
 
-    expect(astronomyPictureOfTheDay, isA<ApodDto>());
+    final astronomyPictureOfTheDay = await usecase(size: size);
+
+    expect(astronomyPictureOfTheDay, isA<List<ApodDto>>());
   });
 
   test('Should return an exception when request fails', () async {
-    when(repository()).thenThrow(Exception());
+    const size = 5;
 
-    final result = usecase();
+    when(repository(size: size)).thenThrow(Exception());
+
+    final result = usecase(size: size);
 
     expect(result, throwsA(isA<ApodGenericException>()));
   });

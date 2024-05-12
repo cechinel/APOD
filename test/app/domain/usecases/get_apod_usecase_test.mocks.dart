@@ -3,10 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
-import 'package:apod/app/domain/models/apod_dto.dart' as _i2;
-import 'package:apod/app/domain/repositories/get_apod_repository.dart' as _i3;
+import 'package:apod/app/domain/models/apod_dto.dart' as _i4;
+import 'package:apod/app/domain/repositories/get_apod_repository.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -22,36 +22,28 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeApodDto_0 extends _i1.SmartFake implements _i2.ApodDto {
-  _FakeApodDto_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [GetApodRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetApodRepository extends _i1.Mock implements _i3.GetApodRepository {
+class MockGetApodRepository extends _i1.Mock implements _i2.GetApodRepository {
   MockGetApodRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.ApodDto> call() => (super.noSuchMethod(
+  _i3.Future<List<_i4.ApodDto>> call({
+    required int? size,
+    DateTime? date,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
+          {
+            #size: size,
+            #date: date,
+          },
         ),
-        returnValue: _i4.Future<_i2.ApodDto>.value(_FakeApodDto_0(
-          this,
-          Invocation.method(
-            #call,
-            [],
-          ),
-        )),
-      ) as _i4.Future<_i2.ApodDto>);
+        returnValue: _i3.Future<List<_i4.ApodDto>>.value(<_i4.ApodDto>[]),
+      ) as _i3.Future<List<_i4.ApodDto>>);
 }
