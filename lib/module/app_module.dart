@@ -11,40 +11,39 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../app/presentation/details/details_page.dart';
 import '../app/presentation/home/home_page.dart';
+import '../services/client_https/interceptors/api_key_interceptor.dart';
 
 class AppModule extends Module {
   @override
   void binds(i) {
     // usecases
-    i.addSingleton<GetApodUsecase>(GetApodUsecaseImpl.new);
+    i.addLazySingleton<GetApodUsecase>(GetApodUsecaseImpl.new);
 
     // repositories
-    i.addSingleton<GetApodRepository>(GetApodRepositoryImpl.new);
+    i.addLazySingleton<GetApodRepository>(GetApodRepositoryImpl.new);
 
     // datasources
-    i.addSingleton<GetApodDatasource>(GetApodDatasourceImpl.new);
+    i.addLazySingleton<GetApodDatasource>(GetApodDatasourceImpl.new);
 
     // controllers
-    i.addSingleton(HomePageController.new);
+    i.addLazySingleton(HomePageController.new);
 
     // client
-    i.addSingleton(ClientHttps.new);
+    i.addLazySingleton<ClientHttps>(() {
+      return ClientHttps(interceptors: [ApiKeyInterceptor()]);
+    });
   }
 
   @override
   void routes(RouteManager r) {
-    r.add(
-      ChildRoute(
-        "/",
-        child: (_) => const HomePage(),
-      ),
+    r.child(
+      '/',
+      child: (_) => const HomePage(),
     );
-    r.add(
-      ChildRoute(
-        '/details',
-        child: (_) => DetailsPage(
-          picture: r.args.data as ApodDto,
-        ),
+    r.child(
+      '/details',
+      child: (_) => DetailsPage(
+        picture: r.args.data as ApodDto,
       ),
     );
   }
