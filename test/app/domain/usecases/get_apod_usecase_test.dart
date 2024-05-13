@@ -43,4 +43,28 @@ void main() {
 
     expect(result, throwsA(isA<ApodGenericException>()));
   });
+
+  test('Should call repository with correct parameters', () async {
+    const size = 5;
+
+    when(repository(size: size)).thenAnswer((_) async => []);
+
+    await usecase(size: size);
+
+    verify(repository(size: size)).called(1);
+  });
+
+  test('Should throw an exception when size is less than 1', () async {
+    const size = 0;
+
+    expect(() async => await usecase(size: size),
+        throwsA(isA<ApodGenericException>()));
+  });
+
+  test('Should throw an exception when size is too large', () async {
+    const size = 1000;
+
+    expect(() async => await usecase(size: size),
+        throwsA(isA<ApodGenericException>()));
+  });
 }
