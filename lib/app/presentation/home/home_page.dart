@@ -1,8 +1,9 @@
-import 'package:apod/app/presentation/home/home_page_controller.dart';
-import 'package:apod/app/presentation/home/widgets/pictures_of_the_day_list.dart';
-import 'package:apod/app/presentation/home/widgets/search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import 'home_page_controller.dart';
+import 'widgets/pictures_of_the_day_list.dart';
+import 'widgets/search_field.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        key: const Key('home_page'),
         appBar: AppBar(
           backgroundColor: Colors.indigo,
           title: const Text(
