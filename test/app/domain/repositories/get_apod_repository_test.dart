@@ -43,4 +43,30 @@ void main() {
 
     expect(result, throwsA(isA<ApodGenericException>()));
   });
+
+  test('Should throw an exception when size is 0', () async {
+    const size = 0;
+
+    final result = repository(size: size);
+
+    expect(result, throwsA(isA<ApodGenericException>()));
+  });
+
+  test('Should throw an exception when size is too large', () async {
+    const size = 1000;
+
+    final result = repository(size: size);
+
+    expect(result, throwsA(isA<ApodGenericException>()));
+  });
+
+  test('Should return an empty list when response is empty', () async {
+    const size = 5;
+
+    when(datasource(size: size)).thenAnswer((_) async => []);
+
+    final astronomyPictureOfTheDay = await repository(size: size);
+
+    expect(astronomyPictureOfTheDay, isEmpty);
+  });
 }
