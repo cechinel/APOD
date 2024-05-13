@@ -39,7 +39,6 @@ abstract class HomePageControllerBase with Store {
   }
 
   searchPicture(String searchTerm) {
-    print(searchTerm);
     if (searchTerm.isEmpty) {
       searchResults = picturesOfTheDayList;
       return;

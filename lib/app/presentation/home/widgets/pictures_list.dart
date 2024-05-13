@@ -6,9 +6,11 @@ class PicturesList extends StatelessWidget {
   final String picture;
   final String pictureTitle;
   final DateTime pictureDate;
+  final Function()? onTap;
 
   const PicturesList({
     super.key,
+    this.onTap,
     required this.picture,
     required this.pictureTitle,
     required this.pictureDate,
@@ -17,14 +19,13 @@ class PicturesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      key: const Key('pictures_list'),
       leading: Hero(
         tag: picture,
         child: SizedBox(
-          width: 80,
-          height: 50,
-          child: ClipRect(
-            child: Image.network(picture),
-          ),
+          width: 70,
+          height: 70,
+          child: Image.network(picture),
         ),
       ),
       title: Hero(
@@ -45,6 +46,7 @@ class PicturesList extends StatelessWidget {
           Text(formatDate(pictureDate)),
         ],
       ),
+      onTap: onTap,
     );
   }
 }
