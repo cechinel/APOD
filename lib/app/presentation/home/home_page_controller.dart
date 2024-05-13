@@ -18,10 +18,10 @@ abstract class HomePageControllerBase with Store {
   bool loading = false;
 
   @observable
-  ObservableList<ApodDto> picturesOfTheDayList = <ApodDto>[].asObservable();
+  List<ApodDto> picturesOfTheDayList = <ApodDto>[];
 
   @observable
-  ObservableList<ApodDto> searchResults = <ApodDto>[].asObservable();
+  List<ApodDto> searchResults = <ApodDto>[];
 
   Future<void> getAstronomyPicturesOfTheDay({
     int size = 12,
@@ -38,28 +38,26 @@ abstract class HomePageControllerBase with Store {
     }
   }
 
-  searchPicture(String searchTerm) {
-    if (searchTerm.isEmpty) {
+  searchPicture(String? searchTerm) {
+    if ((searchTerm ?? '').isEmpty) {
       searchResults = picturesOfTheDayList;
       return;
     }
 
     DateTime? searchDate;
     try {
-      searchDate = DateFormat('MM/dd/yyyy').parseStrict(searchTerm);
+      searchDate = DateFormat('MM/dd/yyyy').parseStrict(searchTerm!);
     } catch (_) {}
 
     if (searchDate != null) {
       searchResults = picturesOfTheDayList
           .where((picture) => picture.date.isAtSameMomentAs(searchDate!))
-          .toList()
-          .asObservable();
+          .toList();
     } else {
       searchResults = picturesOfTheDayList
           .where((picture) =>
-              picture.title.toLowerCase().contains(searchTerm.toLowerCase()))
-          .toList()
-          .asObservable();
+              picture.title.toLowerCase().contains(searchTerm!.toLowerCase()))
+          .toList();
     }
   }
 }

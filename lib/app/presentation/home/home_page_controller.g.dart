@@ -29,13 +29,13 @@ mixin _$HomePageController on HomePageControllerBase, Store {
       name: 'HomePageControllerBase.picturesOfTheDayList', context: context);
 
   @override
-  ObservableList<ApodDto> get picturesOfTheDayList {
+  List<ApodDto> get picturesOfTheDayList {
     _$picturesOfTheDayListAtom.reportRead();
     return super.picturesOfTheDayList;
   }
 
   @override
-  set picturesOfTheDayList(ObservableList<ApodDto> value) {
+  set picturesOfTheDayList(List<ApodDto> value) {
     _$picturesOfTheDayListAtom.reportWrite(value, super.picturesOfTheDayList,
         () {
       super.picturesOfTheDayList = value;
@@ -46,13 +46,13 @@ mixin _$HomePageController on HomePageControllerBase, Store {
       Atom(name: 'HomePageControllerBase.searchResults', context: context);
 
   @override
-  ObservableList<ApodDto> get searchResults {
+  List<ApodDto> get searchResults {
     _$searchResultsAtom.reportRead();
     return super.searchResults;
   }
 
   @override
-  set searchResults(ObservableList<ApodDto> value) {
+  set searchResults(List<ApodDto> value) {
     _$searchResultsAtom.reportWrite(value, super.searchResults, () {
       super.searchResults = value;
     });
