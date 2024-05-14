@@ -1,5 +1,6 @@
 import 'package:apod/app/domain/models/apod_dto.dart';
 import 'package:apod/app/presentation/home/home_page_controller.dart';
+import 'package:mobx/mobx.dart';
 import 'package:mockito/mockito.dart';
 
 class HomePageControllerSpy extends Mock implements HomePageController {
@@ -31,8 +32,8 @@ class HomePageControllerSpy extends Mock implements HomePageController {
   }
 
   @override
-  List<ApodDto> picturesOfTheDayList = <ApodDto>[];
+  ObservableList<ApodDto> picturesOfTheDayList = ObservableList<ApodDto>();
 
   @override
-  List<ApodDto> searchResults = <ApodDto>[];
+  ObservableList<ApodDto> searchResults = ObservableList<ApodDto>();
 }
