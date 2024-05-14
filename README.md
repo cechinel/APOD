@@ -24,7 +24,7 @@
 **Required**
 - [Flutter](https://flutter.dev/)
 - [Android SDK](https://developer.android.com/studio)
-- You have to get a apiKey to use this app. [Generate API Key](https://api.nasa.gov/) and add your api key to confi_api_key.json file.
+- You have to get a apiKey to use this app. [Generate API Key](https://api.nasa.gov/) and add your api key to api_key.json file.
 
 **Versions**
 - [Flutter](https://flutter.dev/) `3.19.5`
@@ -39,6 +39,6 @@
 4. Execute your app with `flutter run` or F5 (debug mode).
 
 ## Architecture
-### This architecture is based in Clean Architecture and SOLID principles, and the UI layer is based in MVP principles. Below is an image of the architecture.
+#### This architecture is based in Clean Architecture and SOLID principles, and the UI layer is based in MVP principles. Below is an image of the architecture.
 
 
