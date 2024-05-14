@@ -1,16 +1,44 @@
-# apod
+<p align="center">
+  <row>
+    <img src="https://badgen.net/badge/types/flutter/blue?icon=flutter" alt="flutter app"/>
+    <img src="https://badgen.net/badge/platform/android?list=|" alt="flutter app"/>
+  </row>
+</p>
 
-A new Flutter project.
+<div align="center">
+  <h3>APOD - Astronomy Picture Of the Day</h3>
+  <p>APOD App is a mobile application for Android developed using Flutter. This application presents a list of Pictures Of the Day from Nasa and its details of each picture.
+</div>
 
-## Getting Started
+<br />
 
-This project is a starting point for a Flutter application.
+## Overview
+1. **[Requirements 📝](#requirements-)**
+2. **[Developing 👷](#developing-)**
+3. **[Architecture ⚙️](#architecture-)**
+4. **[App Images 📱](#app-images-)**
 
-A few resources to get you started if this is your first Flutter project:
+## Requirements 📝
+#### To execute this project it is necessary to have the following dependencies installed and configured on your machine:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+**Required**
+- [Flutter](https://flutter.dev/)
+- [Android SDK](https://developer.android.com/studio)
+- You have to get a apiKey to use this app. [Generate API Key](https://api.nasa.gov/) and add your api key to confi_api_key.json file.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Versions**
+- [Flutter](https://flutter.dev/) `3.19.5`
+- [Dart](https://dart.dev/) `3.3.3`
+
+## Developing 👷
+#### Use a local development environment:
+
+1. [Clone this repo](https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html) with git.
+2. Install dependencies by running `flutter packages get` or `flutter pub get` within the directory that you cloned (probably `app`).
+3. Open any android device emulator of your choice.
+4. Execute your app with `flutter run` or F5 (debug mode).
+
+## Architecture
+### This architecture is based in Clean Architecture and SOLID principles, and the UI layer is based in MVP principles. Below is an image of the architecture.
+
+
