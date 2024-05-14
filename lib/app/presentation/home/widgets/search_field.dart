@@ -11,6 +11,7 @@ class SearchField extends StatefulWidget {
 
 class _SearchFieldState extends State<SearchField> {
   final _controller = Modular.get<HomePageController>();
+
   TextEditingController searchController = TextEditingController();
 
   @override

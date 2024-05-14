@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../shared/format_date.dart';
@@ -25,7 +26,11 @@ class PicturesList extends StatelessWidget {
         child: SizedBox(
           width: 70,
           height: 70,
-          child: Image.network(picture),
+          child: CachedNetworkImage(
+            imageUrl: picture,
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
         ),
       ),
       title: Hero(
