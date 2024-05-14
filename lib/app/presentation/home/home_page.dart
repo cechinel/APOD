@@ -17,8 +17,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _controller.getAstronomyPicturesOfTheDay();
     super.initState();
+    _controller.getAstronomyPicturesOfTheDay();
   }
 
   @override
