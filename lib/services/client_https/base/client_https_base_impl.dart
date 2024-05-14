@@ -1,4 +1,5 @@
 import 'package:apod/services/client_https/base/client_https_base.dart';
+import 'package:apod/services/exceptions/apod_server_exception.dart';
 import 'package:dio/dio.dart';
 
 import '../../exceptions/apod_exception.dart';
@@ -45,10 +46,7 @@ class ClientHttpsBaseImpl implements ClientHttpsBase {
           exception: e,
         );
       } else {
-        return throw ApodException(
-          message: e.message!,
-          error: 'DIO_ERROR',
-        );
+        return throw ApodServerException();
       }
     }
   }
