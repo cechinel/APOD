@@ -15,8 +15,9 @@
 ## Overview
 1. **[Requirements 📝](#requirements-)**
 2. **[Developing 👷](#developing-)**
-3. **[Architecture ⚙️](#architecture-)**
-4. **[App Images 📱](#app-images-)**
+3. **[Tests 👷](#testing-)**
+4. **[Architecture ⚙️](#architecture-)**
+5. **[App Images 📱](#app-images-)**
 
 ## Requirements 📝
 #### To execute this project it is necessary to have the following dependencies installed and configured on your machine:
@@ -37,6 +38,9 @@
 2. Install dependencies by running `flutter packages get` or `flutter pub get` within the directory that you cloned (probably `app`).
 3. Open any android device emulator of your choice.
 4. Execute your app with `flutter run` or F5 (debug mode).
+
+## Testing 👷
+- To run the tests use this command: `flutter test`
 
 ## Architecture
 #### This architecture is based in Clean Architecture and SOLID principles, and the UI layer is based in MVP principles. Below is an image of the architecture.
