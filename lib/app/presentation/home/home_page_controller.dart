@@ -1,7 +1,11 @@
 import 'package:apod/app/domain/models/apod_dto.dart';
+import 'package:apod/app/domain/usecases/create_apod_in_cache_usecase.dart';
+import 'package:apod/app/domain/usecases/get_apod_in_cache_usecase.dart';
 import 'package:apod/app/domain/usecases/get_apod_usecase.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../../services/exceptions/apod_server_exception.dart';
 
 part 'home_page_controller.g.dart';
 
@@ -9,9 +13,13 @@ class HomePageController = HomePageControllerBase with _$HomePageController;
 
 abstract class HomePageControllerBase with Store {
   final GetApodUsecase _getApodUsecase;
+  final CreateApodInCacheUsecase _createApodInCacheUsecase;
+  final GetApodInCacheUsecase _getApodInCacheUsecase;
 
   HomePageControllerBase(
     this._getApodUsecase,
+    this._createApodInCacheUsecase,
+    this._getApodInCacheUsecase,
   );
 
   @observable
@@ -29,9 +37,11 @@ abstract class HomePageControllerBase with Store {
   }) async {
     try {
       loading = true;
-      final pictures = await _getApodUsecase(size: size, date: date);
+      picturesOfTheDayList = await _getApodUsecase(size: size, date: date);
 
-      picturesOfTheDayList = pictures.asObservable();
+      await _createApodInCacheUsecase(picturesOfTheDayList);
+    } on ApodServerException {
+      picturesOfTheDayList = await _getApodInCacheUsecase();
     } catch (_) {
     } finally {
       loading = false;
