@@ -14,59 +14,62 @@ import 'get_apod_repository_test.mocks.dart';
 void main() {
   late GetApodDatasource datasource;
   late GetApodRepository repository;
-  late ApodDto apodDtoFaker;
+  late Mocks apodMock;
 
   setUp(() {
     datasource = MockGetApodDatasource();
     repository = GetApodRepositoryImpl(datasource);
 
-    apodDtoFaker = Mocks.astronomyPictureOfTheDay;
+    apodMock = Mocks();
   });
 
-  test('Should return an ApodDto when request is success', () async {
-    const size = 5;
-    final mockList = List.generate(size, (index) => apodDtoFaker);
+  group('All the tests for get apod repository', () {
+    test('Should return an ApodDto when request is success', () async {
+      const size = 5;
+      final mockList =
+          List.generate(size, (index) => apodMock.astronomyPictureOfTheDay);
 
-    when(datasource(size: size)).thenAnswer((_) async => mockList);
+      when(datasource(size: size)).thenAnswer((_) async => mockList);
 
-    final astronomyPictureOfTheDay = await repository(size: size);
+      final astronomyPictureOfTheDay = await repository(size: size);
 
-    expect(astronomyPictureOfTheDay, isA<List<ApodDto>>());
-  });
+      expect(astronomyPictureOfTheDay, isA<List<ApodDto>>());
+    });
 
-  test('Should throw an exception when request fails', () async {
-    const size = 5;
+    test('Should throw an exception when request fails', () async {
+      const size = 5;
 
-    when(datasource(size: size)).thenThrow(Exception());
+      when(datasource(size: size)).thenThrow(Exception());
 
-    final result = repository(size: size);
+      final result = repository(size: size);
 
-    expect(result, throwsA(isA<ApodGenericException>()));
-  });
+      expect(result, throwsA(isA<ApodGenericException>()));
+    });
 
-  test('Should throw an exception when size is 0', () async {
-    const size = 0;
+    test('Should throw an exception when size is 0', () async {
+      const size = 0;
 
-    final result = repository(size: size);
+      final result = repository(size: size);
 
-    expect(result, throwsA(isA<ApodGenericException>()));
-  });
+      expect(result, throwsA(isA<ApodGenericException>()));
+    });
 
-  test('Should throw an exception when size is too large', () async {
-    const size = 1000;
+    test('Should throw an exception when size is too large', () async {
+      const size = 1000;
 
-    final result = repository(size: size);
+      final result = repository(size: size);
 
-    expect(result, throwsA(isA<ApodGenericException>()));
-  });
+      expect(result, throwsA(isA<ApodGenericException>()));
+    });
 
-  test('Should return an empty list when response is empty', () async {
-    const size = 5;
+    test('Should return an empty list when response is empty', () async {
+      const size = 5;
 
-    when(datasource(size: size)).thenAnswer((_) async => []);
+      when(datasource(size: size)).thenAnswer((_) async => []);
 
-    final astronomyPictureOfTheDay = await repository(size: size);
+      final astronomyPictureOfTheDay = await repository(size: size);
 
-    expect(astronomyPictureOfTheDay, isEmpty);
+      expect(astronomyPictureOfTheDay, isEmpty);
+    });
   });
 }
