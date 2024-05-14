@@ -27,7 +27,7 @@ void main() {
   );
 
   Future<void> loadPage(WidgetTester tester) async {
-    await tester.pumpWidget(makePage(page: const HomePage()));
+    await tester.pumpWidget(const MakePage(page: HomePage()));
   }
 
   group(

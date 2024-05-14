@@ -24,7 +24,7 @@ void main() {
 
   Future<void> loadPage(WidgetTester tester) async {
     await tester.pumpWidget(
-      makePage(
+      MakePage(
         page: DetailsPage(picture: apodMock.astronomyPictureOfTheDay),
       ),
     );
