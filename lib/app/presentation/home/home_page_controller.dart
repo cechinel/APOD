@@ -23,9 +23,6 @@ abstract class HomePageControllerBase with Store {
   );
 
   @observable
-  bool loading = false;
-
-  @observable
   List<ApodDto> picturesOfTheDayList = <ApodDto>[];
 
   @observable
@@ -36,15 +33,11 @@ abstract class HomePageControllerBase with Store {
     DateTime? date,
   }) async {
     try {
-      loading = true;
       picturesOfTheDayList = await _getApodUsecase(size: size, date: date);
 
       await _createApodInCacheUsecase(picturesOfTheDayList);
     } on ApodServerException {
       picturesOfTheDayList = await _getApodInCacheUsecase();
-    } catch (_) {
-    } finally {
-      loading = false;
     }
   }
 
