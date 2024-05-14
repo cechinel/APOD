@@ -23,21 +23,23 @@ abstract class HomePageControllerBase with Store {
   );
 
   @observable
-  List<ApodDto> picturesOfTheDayList = <ApodDto>[];
+  ObservableList<ApodDto> picturesOfTheDayList = ObservableList<ApodDto>();
 
   @observable
-  List<ApodDto> searchResults = <ApodDto>[];
+  ObservableList<ApodDto> searchResults = ObservableList<ApodDto>();
 
   Future<void> getAstronomyPicturesOfTheDay({
     int size = 12,
     DateTime? date,
   }) async {
+    picturesOfTheDayList.clear();
     try {
-      picturesOfTheDayList = await _getApodUsecase(size: size, date: date);
-
-      await _createApodInCacheUsecase(picturesOfTheDayList);
+      picturesOfTheDayList.addAll(
+        await _getApodUsecase(size: size, date: date),
+      );
+      await _createApodInCacheUsecase(picturesOfTheDayList.toList());
     } on ApodServerException {
-      picturesOfTheDayList = await _getApodInCacheUsecase();
+      picturesOfTheDayList.addAll(await _getApodInCacheUsecase());
     }
   }
 
@@ -49,17 +51,22 @@ abstract class HomePageControllerBase with Store {
 
     DateTime? searchDate;
     searchDate = DateFormat('MM/dd/yyyy').tryParse(searchTerm!);
+    searchResults.clear();
 
     if (searchDate != null) {
-      searchResults = picturesOfTheDayList
-          .where((picture) => picture.date.isAtSameMomentAs(searchDate!))
-          .toList();
+      searchResults.addAll(
+        picturesOfTheDayList
+            .where((picture) => picture.date.isAtSameMomentAs(searchDate!))
+            .toList(),
+      );
       return;
     }
 
-    searchResults = picturesOfTheDayList
-        .where((picture) =>
-            picture.title.toLowerCase().contains(searchTerm.toLowerCase()))
-        .toList();
+    searchResults.addAll(
+      picturesOfTheDayList
+          .where((picture) =>
+              picture.title.toLowerCase().contains(searchTerm.toLowerCase()))
+          .toList(),
+    );
   }
 }
