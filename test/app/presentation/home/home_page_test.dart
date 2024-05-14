@@ -1,33 +1,12 @@
-import 'package:apod/app/domain/models/apod_dto.dart';
 import 'package:apod/app/presentation/home/home_page.dart';
 import 'package:apod/app/presentation/home/home_page_controller.dart';
 import 'package:apod/module/app_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 
 import 'helpers/helpers.dart';
-
-class HomePageControllerSpy extends Mock implements HomePageController {
-  @override
-  Future<void> getAstronomyPicturesOfTheDay({
-    int size = 12,
-    DateTime? date,
-  }) async {
-    return super.noSuchMethod(
-      Invocation.method(#getAstronomyPicturesOfTheDay, []),
-      returnValue: Future.value(),
-      returnValueForMissingStub: Future.value(),
-    );
-  }
-
-  @override
-  List<ApodDto> picturesOfTheDayList = <ApodDto>[];
-
-  @override
-  List<ApodDto> searchResults = <ApodDto>[];
-}
+import 'helpers/home_page_controller_spy.dart';
 
 void main() {
   late HomePageControllerSpy controller;
@@ -64,6 +43,30 @@ void main() {
           expect(homePageKey, findsOneWidget);
         },
       );
+
+      testWidgets('Should call getAstronomyPicturesOfTheDay on start page',
+          (tester) async {
+        await loadPage(tester);
+
+        await tester.pump();
+
+        expect(controller.getAstronomyPictureOfTheDayCalled, isTrue);
+      });
+
+      testWidgets('Should call searchPicture on change text field',
+          (tester) async {
+        await loadPage(tester);
+
+        await tester.pump();
+
+        final textField = find.byType(TextField);
+
+        await tester.enterText(textField, 'Moon');
+
+        await tester.pump();
+
+        expect(controller.searchPictureCalled, isTrue);
+      });
     },
   );
 }

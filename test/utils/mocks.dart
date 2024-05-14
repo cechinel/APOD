@@ -2,7 +2,7 @@ import 'package:apod/app/domain/models/apod_dto.dart';
 import 'package:faker/faker.dart';
 
 class Mocks {
-  static ApodDto get astronomyPictureOfTheDay {
+  ApodDto get astronomyPictureOfTheDay {
     final faker = Faker();
 
     return ApodDto(
