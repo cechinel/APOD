@@ -1,3 +1,5 @@
+import 'package:apod/shared/format_date.dart';
+
 import '../entities/apod_entity.dart';
 
 class ApodDto extends ApodEntity {
@@ -23,5 +25,18 @@ class ApodDto extends ApodEntity {
       explanation: map['explanation'] ?? '',
       serviceVersion: map['service_version'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "copyright": copyright,
+      "url": url,
+      "hdurl": hdurl,
+      "title": title,
+      "date": formatDate(date, 'YYYY-MM-DD'),
+      "media_type": mediaType,
+      "explanation": explanation,
+      "service_version": serviceVersion,
+    };
   }
 }
