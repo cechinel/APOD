@@ -25,7 +25,7 @@
 **Required**
 - [Flutter](https://flutter.dev/)
 - [Android SDK](https://developer.android.com/studio)
-- You have to get a apiKey to use this app. [Generate API Key](https://api.nasa.gov/) and add your api key to api_key.json file.
+- You have to get a apiKey to use this app. [Generate API Key](https://api.nasa.gov/) and add your api key to environment.json file.
 
 **Versions**
 - [Flutter](https://flutter.dev/) `3.19.5`
