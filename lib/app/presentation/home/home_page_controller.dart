@@ -48,19 +48,18 @@ abstract class HomePageControllerBase with Store {
     }
 
     DateTime? searchDate;
-    try {
-      searchDate = DateFormat('MM/dd/yyyy').parseStrict(searchTerm!);
-    } catch (_) {}
+    searchDate = DateFormat('MM/dd/yyyy').tryParse(searchTerm!);
 
     if (searchDate != null) {
       searchResults = picturesOfTheDayList
           .where((picture) => picture.date.isAtSameMomentAs(searchDate!))
           .toList();
-    } else {
-      searchResults = picturesOfTheDayList
-          .where((picture) =>
-              picture.title.toLowerCase().contains(searchTerm!.toLowerCase()))
-          .toList();
+      return;
     }
+
+    searchResults = picturesOfTheDayList
+        .where((picture) =>
+            picture.title.toLowerCase().contains(searchTerm.toLowerCase()))
+        .toList();
   }
 }
