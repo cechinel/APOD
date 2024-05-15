@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:apod/app/domain/models/apod_dto.dart';
+import 'package:apod/app/domain/presentation/result_presentation.dart';
 import 'package:apod/app/presentation/home/home_page_controller.dart';
 import 'package:mobx/mobx.dart';
 import 'package:mockito/mockito.dart';
@@ -8,7 +11,7 @@ class HomePageControllerSpy extends Mock implements HomePageController {
   bool searchPictureCalled = false;
 
   @override
-  Future<void> getAstronomyPicturesOfTheDay({
+  Future<ResultPresentation> getAstronomyPicturesOfTheDay({
     int size = 12,
     DateTime? date,
   }) async {
@@ -16,8 +19,8 @@ class HomePageControllerSpy extends Mock implements HomePageController {
 
     return super.noSuchMethod(
       Invocation.method(#getAstronomyPicturesOfTheDay, []),
-      returnValue: Future.value(),
-      returnValueForMissingStub: Future.value(),
+      returnValue: ResultPresentation(),
+      returnValueForMissingStub: ResultPresentation(),
     );
   }
 
