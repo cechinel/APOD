@@ -1,6 +1,7 @@
 import 'package:apod/app/domain/models/apod_dto.dart';
 
-import '../../../services/exceptions/apod_generic_exception.dart';
+import '../../domain/models/exceptions/handle_exception.dart';
+import '../../domain/models/exceptions/handle_generic_exception.dart';
 import '../../domain/repositories/get_apod_in_cache_repository.dart';
 import '../datasources/get_apod_in_cache_datasource.dart';
 
@@ -13,8 +14,10 @@ class GetApodInCacheRepositoryImpl implements GetApodInCacheRepository {
   Future<List<ApodDto>> call() async {
     try {
       return await _datasource();
-    } catch (_) {
-      throw ApodGenericException();
+    } on HandledException catch (_) {
+      rethrow;
+    } catch (e) {
+      throw HandledGenericException(e);
     }
   }
 }
