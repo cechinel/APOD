@@ -45,4 +45,24 @@
 ## Architecture
 #### This architecture is based in Clean Architecture and SOLID principles, and the UI layer is based in MVP principles. Below is an image of the architecture.
 
+<p align="center">
+  <row>
+    <img src="docs/arch.drawio.png" alt=""/>
+  </row>
+</p>
 
+## App Images
+
+This section shows images of application.
+
+<p align="center">
+  <row>
+    <img src="docs/apod_home_page.png" alt="Home Page"/>
+  </row>
+</p>
+
+<p align="center">
+  <row>
+    <img src="docs/apod_details_page.png" alt="Details Page"/>
+  </row>
+</p>
