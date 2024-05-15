@@ -12,6 +12,8 @@ import 'package:apod/app/domain/usecases/get_apod_usecase_impl.dart';
 import 'package:apod/app/external/get_apod_datasource_impl.dart';
 import 'package:apod/app/presentation/home/home_page_controller.dart';
 import 'package:apod/services/client_https/client_https.dart';
+import 'package:apod/services/client_https/interceptors/error_handle_interceptor.dart';
+import 'package:apod/services/client_https/interceptors/headers_interceptors.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../app/data/datasources/create_apod_in_cache_datasource.dart';
@@ -23,7 +25,6 @@ import '../app/external/create_apod_in_cache_datasource_impl.dart';
 import '../app/external/get_apod_in_cache_datasource_impl.dart';
 import '../app/presentation/details/details_page.dart';
 import '../app/presentation/home/home_page.dart';
-import '../services/client_https/interceptors/api_key_interceptor.dart';
 
 class AppModule extends Module {
   @override
@@ -53,7 +54,10 @@ class AppModule extends Module {
 
     // client
     i.addLazySingleton<ClientHttps>(() {
-      return ClientHttps(interceptors: [ApiKeyInterceptor()]);
+      return ClientHttps(interceptors: [
+        HeadersInterceptors(),
+        ErrorHandleInterceptor(),
+      ]);
     });
   }
 
