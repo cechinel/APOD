@@ -1,11 +1,12 @@
 import 'package:apod/app/domain/models/apod_dto.dart';
+import 'package:apod/app/domain/presentation/result_presentation.dart';
 import 'package:apod/app/domain/usecases/create_apod_in_cache_usecase.dart';
 import 'package:apod/app/domain/usecases/get_apod_in_cache_usecase.dart';
 import 'package:apod/app/domain/usecases/get_apod_usecase.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../services/exceptions/apod_server_exception.dart';
+import '../../domain/models/exceptions/handle_exception.dart';
 
 part 'home_page_controller.g.dart';
 
@@ -28,7 +29,7 @@ abstract class HomePageControllerBase with Store {
   @observable
   ObservableList<ApodDto> searchResults = ObservableList<ApodDto>();
 
-  Future<void> getAstronomyPicturesOfTheDay({
+  Future<ResultPresentation> getAstronomyPicturesOfTheDay({
     int size = 12,
     DateTime? date,
   }) async {
@@ -38,8 +39,13 @@ abstract class HomePageControllerBase with Store {
         await _getApodUsecase(size: size, date: date),
       );
       await _createApodInCacheUsecase(picturesOfTheDayList.toList());
-    } on ApodServerException {
+      return ResultPresentation();
+    } on HandledException catch (e) {
       picturesOfTheDayList.addAll(await _getApodInCacheUsecase());
+      if (picturesOfTheDayList.isNotEmpty) {
+        return ResultPresentation();
+      }
+      return ResultPresentation.exception(e);
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:apod/app/presentation/components/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -18,7 +19,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _controller.getAstronomyPicturesOfTheDay();
+    _controller.getAstronomyPicturesOfTheDay().then((result) => {
+          if (!result.success)
+            {
+              Toast.error(
+                context,
+                message: result.error ?? 'An unexpected error occured.',
+              )
+            }
+        });
   }
 
   @override
