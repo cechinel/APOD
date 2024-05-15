@@ -1,8 +1,6 @@
+import 'package:apod/app/domain/models/exceptions/handle_exception.dart';
 import 'package:apod/services/client_https/base/client_https_base.dart';
-import 'package:apod/services/exceptions/apod_server_exception.dart';
 import 'package:dio/dio.dart';
-
-import '../../exceptions/apod_exception.dart';
 
 class ClientHttpsBaseImpl implements ClientHttpsBase {
   final Dio _dio;
@@ -18,6 +16,26 @@ class ClientHttpsBaseImpl implements ClientHttpsBase {
     if (httpClientAdapter != null) {
       _dio.httpClientAdapter = httpClientAdapter;
     }
+  }
+
+  HandledException _getExceptionInstance(DioException e) {
+    dynamic error;
+    if (e.response?.data['errors'] != null) {
+      final errors = e.response!.data['errors'] as List;
+      error = errors.first;
+    } else {
+      error = null;
+    }
+
+    final titleError = error?['title'];
+    final messageError = error?['detail'];
+
+    return HandledException(
+      error: titleError ?? e.error,
+      message: messageError ?? e.response?.statusMessage ?? '',
+      statusCode: e.response?.statusCode ?? 500,
+      exception: e,
+    );
   }
 
   @override
@@ -37,17 +55,7 @@ class ClientHttpsBaseImpl implements ClientHttpsBase {
         onReceiveProgress: onReceiveProgress,
       );
     } on DioException catch (e) {
-      if (e.response != null) {
-        return throw ApodException(
-          message: e.response!.data.toString(),
-          error: e.error.toString(),
-          statusCode: e.response!.statusCode,
-          stackTrace: e.stackTrace,
-          exception: e,
-        );
-      } else {
-        return throw ApodServerException();
-      }
+      throw _getExceptionInstance(e);
     }
   }
 }
