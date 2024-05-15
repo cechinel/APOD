@@ -25,7 +25,7 @@
 **Required**
 - [Flutter](https://flutter.dev/)
 - [Android SDK](https://developer.android.com/studio)
-- You have to get a apiKey to use this app. [Generate API Key](https://api.nasa.gov/) and add your api key to environment.json file.
+- This project is using a demo key (DEMO_KEY) as api_key, but you can create your api_key directly on the [NASA](https://api.nasa.gov/) website and place it for testing in the headers_interceptors file and replace 'DEMO_KEY' with your api_key.
 
 **Versions**
 - [Flutter](https://flutter.dev/) `3.19.5`
