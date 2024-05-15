@@ -7,7 +7,7 @@
 
 <div align="center">
   <h3>APOD - Astronomy Picture Of the Day</h3>
-  <p>APOD App is a mobile application for Android developed using Flutter. This application presents a list of Pictures Of the Day from Nasa and its details of each picture.
+  <p>APOD App is a mobile application for Android developed using Flutter. This application presents a list of Pictures Of the Day from Nasa and its details of each picture. It works online and offiline the list of pictures is saved in cache after the first load. If you are not connected to the internet on first loading, the app will show a server error message.
 </div>
 
 <br />
