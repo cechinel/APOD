@@ -8,9 +8,10 @@ class HeadersInterceptors extends InterceptorsWrapper {
   ) async {
     options.headers["accept"] = "application/json";
     options.headers["Accept-language"] = 'pt-br';
-    const apiKey = 'DEMO_KEY';
 
-    options.queryParameters.addAll({'api_key': apiKey});
+    options.queryParameters.addAll({
+      'api_key': const String.fromEnvironment('API_KEY'),
+    });
 
     return handler.next(options);
   }

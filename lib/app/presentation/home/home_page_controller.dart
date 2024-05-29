@@ -49,7 +49,7 @@ abstract class HomePageControllerBase with Store {
     }
   }
 
-  searchPicture(String? searchTerm) {
+  void searchPicture(String? searchTerm) {
     if ((searchTerm ?? '').isEmpty) {
       searchResults = picturesOfTheDayList;
       return;

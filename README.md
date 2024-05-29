@@ -25,7 +25,7 @@
 **Required**
 - [Flutter](https://flutter.dev/)
 - [Android SDK](https://developer.android.com/studio)
-- This project is using a demo key (DEMO_KEY) as api_key, but you can create your api_key directly on the [NASA](https://api.nasa.gov/) website and place it for testing in the headers_interceptors file and replace 'DEMO_KEY' with your api_key.
+- You will need an API key, you can get one [here](https://api.nasa.gov/). Now with your API_KEY on hands paste it into the env.json environment variable.
 
 **Versions**
 - [Flutter](https://flutter.dev/) `3.19.5`
@@ -37,7 +37,7 @@
 1. [Clone this repo](https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html) with git.
 2. Install dependencies by running `flutter packages get` or `flutter pub get` within the directory that you cloned (probably `app`).
 3. Open any android device emulator of your choice.
-4. Execute your app with `flutter run` or F5 (debug mode).
+4. Execute your app with `flutter run --dart-define-from-file=env.json` or F5 (debug mode).
 
 ## Testing 👷
 - To run the tests use this command: `flutter test`
